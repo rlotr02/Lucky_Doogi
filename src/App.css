@@ -1,0 +1,23 @@
+.layout-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100dvh;
+  gap: 12px;
+}
+
+.main-wrapper {
+  width: 320px;
+}
+
+.ad-wrapper {
+  width: 160px;
+  height: 600px;
+}
+
+@media (max-width: 678px) {
+  .ad-wrapper {
+    display: none;
+  }
+}
