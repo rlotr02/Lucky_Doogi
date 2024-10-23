@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as S from "@styles/MainPageStyle";
 import MainImg from "@images/Main.png";
-import MainDoogiImg from "@images/MainDoogi.png";
+import MainDoogiImg from "/Logo.png";
 import ButtonImg from "@images/Button.png";
 import KakaoAdfitBottom from "@components/adfit/KakaoAdfitBottom";
 
