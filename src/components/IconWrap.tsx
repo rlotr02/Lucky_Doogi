@@ -1,4 +1,4 @@
-import GithubIcon from "@icons/Github.svg?react";
+import HomeIcon from "@icons/Home.svg?react";
 import InstagramIcon from "@icons/Instagram.svg?react";
 import LinkIcon from "@icons/Link.svg?react";
 import RestartIcon from "@icons/Restart.svg?react";
@@ -37,7 +37,11 @@ const IconWrap = ({
         onTransitionEnd={() => setIsClickIcon(true)}
         style={{ pointerEvents: isClickIcon ? "auto" : "none" }}
       >
-        <GithubIcon onClick={() => window.open("https://github.com/rlotr02")} />
+        <HomeIcon
+          onClick={() =>
+            window.open("https://www.instagram.com/doogi_official")
+          }
+        />
         <InstagramIcon
           onClick={() => window.open("https://www.instagram.com/rlotr.dev")}
         />

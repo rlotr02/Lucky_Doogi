@@ -8,6 +8,7 @@ export const Container = styled.div<{ $isLoad: boolean }>`
 
   opacity: ${(props) => (props.$isLoad ? 1 : 0)};
   transition: opacity 0.8s ease-in-out;
+  user-select: none;
 `;
 
 export const MainWrap = styled.div`

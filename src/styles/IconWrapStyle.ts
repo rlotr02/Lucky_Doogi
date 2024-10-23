@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
-  height: 38px;
+  height: 30px;
   width: 320px;
 `;
 
@@ -29,4 +30,5 @@ export const LogoText = styled.h1<{ $isShowIcon: boolean }>`
   font: var(--H1);
   color: var(--Black);
   user-select: none;
+  cursor: pointer;
 `;
