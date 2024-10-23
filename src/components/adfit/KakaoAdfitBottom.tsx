@@ -20,7 +20,7 @@ const KakaoAdfitBottom = () => {
       <ins
         className="kakao_ad_area"
         style={{ display: "none" }}
-        data-ad-unit="DAN-6UV1aeipWwc887VV"
+        data-ad-unit="DAN-MdVyuKIuCu7KPS7L"
         data-ad-width="320"
         data-ad-height="50"
       />
