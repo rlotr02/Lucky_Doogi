@@ -162,9 +162,7 @@ const ScratchCard = ({
           backgroundColor: "#fff",
           width: "320px",
           height: "531px",
-          opacity: isLoading ? 1 : 0,
           visibility: isLoading ? "visible" : "hidden",
-          transition: "opacity 0.8s ease-in-out",
         }}
       ></div>
       <canvas
