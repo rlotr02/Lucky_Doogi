@@ -21,12 +21,10 @@ const ScratchCard = ({
   const [opacity, setOpacity] = useState(1);
   const [isImgLoad, setIsImgLoad] = useState(false); //이미지 로드 상태
   const [image, setImage] = useState("");
-  const [isIndex, setIsIndex] = useState(false);
 
   const initializeState = () => {
     setOpacity(1);
     setIsImgLoad(false);
-    setIsIndex(false);
     setLastPosition(null);
     setCtx(null);
   };
@@ -74,8 +72,6 @@ const ScratchCard = ({
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     if (!ctx || !canvasRef.current || !isImgLoad) return;
-
-    setIsIndex(true);
 
     const { x, y } = getCoordinates(e);
 
@@ -144,7 +140,7 @@ const ScratchCard = ({
         position: "relative",
         width: "320px",
         height: "531px",
-        backgroundImage: isIndex ? `url(${image})` : "",
+        backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         userSelect: "none",

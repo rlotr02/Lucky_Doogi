@@ -28,7 +28,11 @@ const IconWrap = ({
 
   return (
     <S.Container>
-      <S.LogoText $isShowIcon={isShowIcon} onClick={() => setIsMainPage(true)}>
+      <S.LogoText
+        $isShowIcon={isShowIcon}
+        onClick={() => setIsMainPage(true)}
+        style={{ pointerEvents: !isShowIcon ? "auto" : "none" }}
+      >
         LUCKY DOOGI
       </S.LogoText>
       <S.IconWrap
