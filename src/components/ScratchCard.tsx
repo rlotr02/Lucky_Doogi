@@ -19,14 +19,16 @@ const ScratchCard = ({
     y: number;
   } | null>(null); // 마지막으로 지운 위치 상태
   const totalPixels = 320 * 531; // 전체 픽셀 수
-  const [opacity, setOpacity] = useState(1);
-  const [imgOpacity, setImgOpacity] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [opacity, setOpacity] = useState(1); // 스크래치 이미지 투명도
+  const [imgOpacity, setImgOpacity] = useState(0); // 결과 이미지 투명도
+  const [isEndTransition, setIsEndTransition] = useState(false); // transition이 끝났는지 여부
+  const [isImageLoaded, setIsImageLoaded] = useState(false); // 결과 이미지 로드 여부
 
   const initializeState = () => {
     setOpacity(1);
     setImgOpacity(0);
-    setIsLoading(true);
+    setIsEndTransition(false);
+    setIsImageLoaded(false);
     setLastPosition(null);
     setCtx(null);
   };
@@ -52,7 +54,7 @@ const ScratchCard = ({
   }, [selectImage]);
 
   useEffect(() => {
-    setIsLoading(false);
+    setIsEndTransition(true);
   }, []);
 
   // 마우스, 터치 이벤트로부터 좌표 계산
@@ -74,7 +76,8 @@ const ScratchCard = ({
   const draw = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
-    if (!ctx || !canvasRef.current || isLoading) return;
+    if (!ctx || !canvasRef.current || !isEndTransition || !isImageLoaded)
+      return;
 
     if (!isShowIcon && imgOpacity !== 1) {
       setImgOpacity(1);
@@ -140,7 +143,7 @@ const ScratchCard = ({
       ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       setIsClickIcon(true);
     }
-    setIsLoading(false);
+    setIsEndTransition(true);
   };
 
   return (
@@ -152,7 +155,6 @@ const ScratchCard = ({
       }}
       draggable={false}
     >
-      <img src={selectImage} height={50} />
       <img
         src={selectImage}
         width={320}
@@ -167,6 +169,7 @@ const ScratchCard = ({
           opacity: imgOpacity,
           zIndex: -10,
         }}
+        onLoad={() => setIsImageLoaded(true)}
       />
       <canvas
         ref={canvasRef}

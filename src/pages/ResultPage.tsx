@@ -15,7 +15,6 @@ const ResultPage = ({
   const [isClickIcon, setIsClickIcon] = useState(false);
   const [selectIndex, setSelectIndex] = useState<number | null>(null);
   const [selectIndexs, setSelectIndexs] = useState<number[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * ImageData.length);
@@ -52,12 +51,6 @@ const ResultPage = ({
 
       return newSelectIndexs;
     });
-
-    setIsLoading(true);
-  };
-
-  const handleImageLoad = () => {
-    setIsLoading(false); // 이미지가 로드되면 로딩 상태 해제
   };
 
   return (
@@ -71,17 +64,6 @@ const ResultPage = ({
             setIsMainPage={setIsMainPage}
             isClickIcon={isClickIcon}
           />
-          <div style={{ display: "flex" }}>
-            {isLoading && <p>Loading...</p>}
-            <img
-              src={ImageData[selectIndex].image}
-              height={50}
-              alt="Random Image"
-              onLoad={handleImageLoad} // 이미지 로드 이벤트
-              style={{ display: isLoading ? "none" : "block" }} // 로딩 중에는 숨김
-            />
-            <p>{selectIndex}</p>
-          </div>
           <ScratchCard
             isShowIcon={isShowIcon}
             setIsShowIcon={setIsShowIcon}
