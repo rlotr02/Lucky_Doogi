@@ -1,15 +1,14 @@
 import { useRef, useEffect, useState } from "react";
 import ScratchCardImg from "@images/cards/ScratchCard.png";
-import { ImageData } from "@/constants/ImageData";
 
 const ScratchCard = ({
   isShowIcon,
   setIsShowIcon,
-  selectIndex,
+  selectImage,
 }: {
   isShowIcon: boolean;
   setIsShowIcon: React.Dispatch<React.SetStateAction<boolean>>;
-  selectIndex: number;
+  selectImage: string;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
@@ -19,7 +18,6 @@ const ScratchCard = ({
   } | null>(null); // 마지막으로 지운 위치 상태
   const totalPixels = 320 * 531; // 전체 픽셀 수
   const [opacity, setOpacity] = useState(1);
-  const [image, setImage] = useState(ImageData[selectIndex].image);
   const [imgOpacity, setImgOpacity] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -33,7 +31,6 @@ const ScratchCard = ({
 
   useEffect(() => {
     initializeState();
-    setImage(ImageData[selectIndex].image);
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -50,7 +47,7 @@ const ScratchCard = ({
       context.drawImage(scratchImage, 0, 0, canvas.width, canvas.height);
       setCtx(context);
     };
-  }, [selectIndex]);
+  }, [selectImage]);
 
   useEffect(() => {
     setIsLoading(false);
@@ -153,7 +150,7 @@ const ScratchCard = ({
       draggable={false}
     >
       <img
-        src={image}
+        src={selectImage}
         width={320}
         height={531}
         style={{

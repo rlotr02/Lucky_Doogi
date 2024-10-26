@@ -64,7 +64,7 @@ const ResultPage = ({
           <ScratchCard
             isShowIcon={isShowIcon}
             setIsShowIcon={setIsShowIcon}
-            selectIndex={selectIndex}
+            selectImage={ImageData[selectIndex].image}
           />
           <KakaoAdfitBottom />
         </>
