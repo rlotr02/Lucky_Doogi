@@ -146,3 +146,11 @@ img {
 ::-webkit-scrollbar-track {
   display: none;
 }
+
+/* 드래그 막기 */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
+}

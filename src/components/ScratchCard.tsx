@@ -18,7 +18,7 @@ const ScratchCard = ({
     x: number;
     y: number;
   } | null>(null); // 마지막으로 지운 위치 상태
-  const totalPixels = 320 * 531; // 전체 픽셀 수
+  const totalPixels = 640 * 1062; // 전체 픽셀 수
   const [opacity, setOpacity] = useState(1); // 스크래치 이미지 투명도
   const [imgOpacity, setImgOpacity] = useState(0); // 결과 이미지 투명도
   const [isEndTransition, setIsEndTransition] = useState(false); // transition이 끝났는지 여부
@@ -46,6 +46,9 @@ const ScratchCard = ({
     const scratchImage = new Image();
     scratchImage.src = ScratchCardImg;
     scratchImage.onload = () => {
+      canvas.width = scratchImage.width;
+      canvas.height = scratchImage.height;
+
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.globalCompositeOperation = "source-over";
       context.drawImage(scratchImage, 0, 0, canvas.width, canvas.height);
@@ -85,17 +88,20 @@ const ScratchCard = ({
 
     const { x, y } = getCoordinates(e);
 
+    const scaleX = canvasRef.current.width / 320;
+    const scaleY = canvasRef.current.height / 531;
+
     // 스크래치 효과 설정
     ctx.globalCompositeOperation = "destination-out"; // 이미지 지우기 모드 설정
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
-    ctx.lineWidth = 100; // 스크래치 선 두께
+    ctx.lineWidth = 200; // 스크래치 선 두께
 
     // 마지막 위치가 존재할 때만 선 그리기
     if (lastPosition) {
       ctx.beginPath();
-      ctx.moveTo(lastPosition.x, lastPosition.y);
-      ctx.lineTo(x, y);
+      ctx.moveTo(lastPosition.x * scaleX, lastPosition.y * scaleY);
+      ctx.lineTo(x * scaleX, y * scaleY);
       ctx.stroke();
     }
 
@@ -170,11 +176,12 @@ const ScratchCard = ({
           zIndex: -10,
         }}
         onLoad={() => setIsImageLoaded(true)}
+        draggable={false}
       />
       <canvas
         ref={canvasRef}
-        width={320}
-        height={531}
+        width={640}
+        height={1062}
         onMouseMove={draw}
         onMouseLeave={handlePointerOut}
         onTouchMove={draw}
@@ -183,7 +190,10 @@ const ScratchCard = ({
         style={{
           transition: "opacity 0.6s ease-in-out",
           opacity,
+          width: 320,
+          height: 531,
         }}
+        draggable={false}
       />
     </div>
   );
