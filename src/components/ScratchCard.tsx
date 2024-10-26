@@ -19,12 +19,11 @@ const ScratchCard = ({
   } | null>(null); // 마지막으로 지운 위치 상태
   const totalPixels = 320 * 531; // 전체 픽셀 수
   const [opacity, setOpacity] = useState(1);
-  const [isImgLoad, setIsImgLoad] = useState(false); //이미지 로드 상태
   const [image, setImage] = useState("");
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태
 
   const initializeState = () => {
     setOpacity(1);
-    setIsImgLoad(false);
     setLastPosition(null);
     setCtx(null);
   };
@@ -48,8 +47,14 @@ const ScratchCard = ({
       setCtx(context);
     };
 
-    setImage(ImageData[selectIndex].image);
-    setIsImgLoad(true);
+    const img = new Image();
+    img.src = ImageData[selectIndex].image;
+    img.onload = () => {
+      setImage(img.src);
+      setIsLoading(false);
+    };
+
+    setIsLoading(true);
   }, [selectIndex]);
 
   // 마우스, 터치 이벤트로부터 좌표 계산
@@ -71,7 +76,7 @@ const ScratchCard = ({
   const draw = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
-    if (!ctx || !canvasRef.current || !isImgLoad) return;
+    if (!ctx || !canvasRef.current) return;
 
     const { x, y } = getCoordinates(e);
 
@@ -140,7 +145,7 @@ const ScratchCard = ({
         position: "relative",
         width: "320px",
         height: "531px",
-        backgroundImage: `url(${image})`,
+        backgroundImage: isLoading ? undefined : `url(${image})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         userSelect: "none",
@@ -151,6 +156,17 @@ const ScratchCard = ({
       }}
       draggable={false}
     >
+      <div
+        style={{
+          position: "absolute",
+          backgroundColor: "#fff",
+          width: "320px",
+          height: "531px",
+          opacity: isLoading ? 1 : 0,
+          visibility: isLoading ? "visible" : "hidden",
+          transition: "opacity 0.8s ease-in-out",
+        }}
+      ></div>
       <canvas
         ref={canvasRef}
         width={320}
@@ -163,17 +179,6 @@ const ScratchCard = ({
         style={{
           transition: isShowIcon ? "opacity 0.8s ease-in-out" : "",
           opacity,
-        }}
-      />
-      <img
-        src={ScratchCardImg}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: -10,
         }}
       />
     </div>
