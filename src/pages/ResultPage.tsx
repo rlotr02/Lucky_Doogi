@@ -10,6 +10,7 @@ const ResultPage = ({
 }: {
   setIsMainPage: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [isShowIcon, setIsShowIcon] = useState(false);
   const [selectIndex, setSelectIndex] = useState<number | null>(null);
   const [selectIndexs, setSelectIndexs] = useState<number[]>([]);
@@ -18,6 +19,12 @@ const ResultPage = ({
     const randomIndex = Math.floor(Math.random() * ImageData.length);
     setSelectIndex(randomIndex);
     setSelectIndexs([randomIndex]);
+
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   //랜덤 인덱스 선택 함수
@@ -45,7 +52,7 @@ const ResultPage = ({
   };
 
   return (
-    <S.Container>
+    <S.Container $isVisible={isVisible}>
       {selectIndex !== null && (
         <>
           <IconWrap

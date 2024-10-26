@@ -18,19 +18,22 @@ const ScratchCard = ({
     y: number;
   } | null>(null); // 마지막으로 지운 위치 상태
   const totalPixels = 320 * 531; // 전체 픽셀 수
-  const [opacity, setOpacity] = useState(0);
-  const [image, setImage] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [opacity, setOpacity] = useState(1);
+  const [image, setImage] = useState(ImageData[selectIndex].image);
+  const [imgOpacity, setImgOpacity] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const initializeState = () => {
     setOpacity(1);
+    setImgOpacity(0);
+    setIsLoading(true);
     setLastPosition(null);
     setCtx(null);
   };
 
   useEffect(() => {
     initializeState();
+    setImage(ImageData[selectIndex].image);
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -47,20 +50,11 @@ const ScratchCard = ({
       context.drawImage(scratchImage, 0, 0, canvas.width, canvas.height);
       setCtx(context);
     };
+  }, [selectIndex]);
 
-    const img = new Image();
-    img.src = ImageData[selectIndex].image;
-    img.onload = () => {
-      setImage(img.src);
-
-      if (isFirstLoad) {
-        setIsLoading(false);
-        setIsFirstLoad(false);
-      }
-    };
-
-    setIsLoading(true);
-  }, [isFirstLoad, selectIndex]);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   // 마우스, 터치 이벤트로부터 좌표 계산
   const getCoordinates = (
@@ -82,6 +76,10 @@ const ScratchCard = ({
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     if (!ctx || !canvasRef.current || isLoading) return;
+
+    if (!isShowIcon && imgOpacity !== 1) {
+      setImgOpacity(1);
+    }
 
     const { x, y } = getCoordinates(e);
 
@@ -142,10 +140,7 @@ const ScratchCard = ({
     if (ctx && canvasRef.current && isShowIcon) {
       ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     }
-
-    if (!isShowIcon) {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   };
 
   return (
@@ -154,17 +149,24 @@ const ScratchCard = ({
         position: "relative",
         width: "320px",
         height: "531px",
-        backgroundImage: isLoading ? undefined : `url(${image})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        userSelect: "none",
-        WebkitUserSelect: "none",
-        WebkitTouchCallout: "none",
-        MozUserSelect: "none",
-        msUserSelect: "none",
       }}
       draggable={false}
     >
+      <img
+        src={image}
+        width={320}
+        height={531}
+        style={{
+          position: "absolute",
+          userSelect: "none",
+          WebkitUserSelect: "none",
+          WebkitTouchCallout: "none",
+          MozUserSelect: "none",
+          msUserSelect: "none",
+          opacity: imgOpacity,
+          zIndex: -10,
+        }}
+      />
       <canvas
         ref={canvasRef}
         width={320}
