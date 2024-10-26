@@ -12,6 +12,7 @@ const ResultPage = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isShowIcon, setIsShowIcon] = useState(false);
+  const [isClickIcon, setIsClickIcon] = useState(false);
   const [selectIndex, setSelectIndex] = useState<number | null>(null);
   const [selectIndexs, setSelectIndexs] = useState<number[]>([]);
 
@@ -22,7 +23,7 @@ const ResultPage = ({
 
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 100);
+    }, 60);
 
     return () => clearTimeout(timer);
   }, []);
@@ -30,6 +31,7 @@ const ResultPage = ({
   //랜덤 인덱스 선택 함수
   const restartClick = () => {
     setIsShowIcon(false);
+    setIsClickIcon(false);
 
     const availableIndices = Array.from(
       { length: ImageData.length },
@@ -60,11 +62,13 @@ const ResultPage = ({
             selectIndex={selectIndex}
             restartClick={restartClick}
             setIsMainPage={setIsMainPage}
+            isClickIcon={isClickIcon}
           />
           <ScratchCard
             isShowIcon={isShowIcon}
             setIsShowIcon={setIsShowIcon}
             selectImage={ImageData[selectIndex].image}
+            setIsClickIcon={setIsClickIcon}
           />
           <KakaoAdfitBottom />
         </>

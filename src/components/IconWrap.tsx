@@ -5,27 +5,20 @@ import RestartIcon from "@icons/Restart.svg?react";
 import SaveIcon from "@icons/Save.svg?react";
 import * as S from "@styles/IconWrapStyle";
 import { ImageData } from "@/constants/ImageData";
-import { useEffect, useState } from "react";
 
 const IconWrap = ({
   selectIndex,
   isShowIcon,
   restartClick,
   setIsMainPage,
+  isClickIcon,
 }: {
   selectIndex: number;
   isShowIcon: boolean;
   restartClick: () => void;
   setIsMainPage: React.Dispatch<React.SetStateAction<boolean>>;
+  isClickIcon: boolean;
 }) => {
-  const [isClickIcon, setIsClickIcon] = useState(false);
-
-  useEffect(() => {
-    if (!isShowIcon) {
-      setIsClickIcon(false);
-    }
-  }, [isShowIcon]);
-
   return (
     <S.Container>
       <S.LogoText $isShowIcon={isShowIcon} onClick={() => setIsMainPage(true)}>
@@ -34,7 +27,6 @@ const IconWrap = ({
       <S.IconWrap
         $isShowIcon={isShowIcon}
         $color={ImageData[selectIndex].color}
-        onTransitionEnd={() => setIsClickIcon(true)}
         style={{ pointerEvents: isClickIcon ? "auto" : "none" }}
       >
         <HomeIcon

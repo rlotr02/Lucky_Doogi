@@ -5,10 +5,12 @@ const ScratchCard = ({
   isShowIcon,
   setIsShowIcon,
   selectImage,
+  setIsClickIcon,
 }: {
   isShowIcon: boolean;
   setIsShowIcon: React.Dispatch<React.SetStateAction<boolean>>;
   selectImage: string;
+  setIsClickIcon: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
@@ -136,6 +138,7 @@ const ScratchCard = ({
   const handleTransitionEnd = () => {
     if (ctx && canvasRef.current && isShowIcon) {
       ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      setIsClickIcon(true);
     }
     setIsLoading(false);
   };
