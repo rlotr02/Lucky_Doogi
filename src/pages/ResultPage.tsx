@@ -64,6 +64,10 @@ const ResultPage = ({
             setIsMainPage={setIsMainPage}
             isClickIcon={isClickIcon}
           />
+          <div style={{ display: "flex" }}>
+            <img src={ImageData[selectIndex].image} height={50} />
+            <p>{selectIndex}</p>
+          </div>
           <ScratchCard
             isShowIcon={isShowIcon}
             setIsShowIcon={setIsShowIcon}
