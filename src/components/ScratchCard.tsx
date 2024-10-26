@@ -152,6 +152,7 @@ const ScratchCard = ({
       }}
       draggable={false}
     >
+      <img src={selectImage} height={50} />
       <img
         src={selectImage}
         width={320}
@@ -177,9 +178,7 @@ const ScratchCard = ({
         onTouchEnd={handlePointerOut}
         onTransitionEnd={handleTransitionEnd}
         style={{
-          transition: isShowIcon
-            ? "opacity 0.8s ease-in-out"
-            : "opacity 0.5s ease-in-out",
+          transition: "opacity 0.6s ease-in-out",
           opacity,
         }}
       />
