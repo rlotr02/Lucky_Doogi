@@ -1,6 +1,6 @@
 import HomeIcon from "@icons/Home.svg?react";
-import InstagramIcon from "@icons/Instagram.svg?react";
-import LinkIcon from "@icons/Link.svg?react";
+import DeveloperIcon from "@icons/Developer.svg?react";
+import HeartIcon from "@icons/Heart.svg?react";
 import RestartIcon from "@icons/Restart.svg?react";
 import SaveIcon from "@icons/Save.svg?react";
 import * as S from "@styles/IconWrapStyle";
@@ -29,15 +29,9 @@ const IconWrap = ({
         $color={ImageData[selectIndex].color}
         style={{ pointerEvents: isClickIcon ? "auto" : "none" }}
       >
-        <HomeIcon
-          onClick={() =>
-            window.open("https://www.instagram.com/doogi_official")
-          }
-        />
-        <InstagramIcon
-          onClick={() => window.open("https://www.instagram.com/rlotr.dev")}
-        />
-        <LinkIcon onClick={() => window.open("https://litt.ly/rlotr02")} />
+        <HomeIcon onClick={() => setIsMainPage(true)} />
+        <DeveloperIcon onClick={() => window.open("https://litt.ly/rlotr02")} />
+        <HeartIcon onClick={() => window.open("https://litt.ly/doofficial")} />
         <RestartIcon onClick={restartClick} />
         <a
           href={ImageData[selectIndex].image}
