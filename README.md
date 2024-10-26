@@ -5,7 +5,7 @@
 
 </div>
 
-# 🎀 LUCKY DOOGI | 럭키두기
+# 🍀 LUCKY DOOGI | 럭키두기
 > **럭키두기 바로가기 :** [https://lucky-doogi.netlify.app](https://lucky-doogi.netlify.app)
 <br>
 
